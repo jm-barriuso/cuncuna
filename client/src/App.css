@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
 }
 
 .App-logo {
@@ -35,4 +35,41 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.image-container-upload{
+margin: 10px 0;
+padding: 0;
+gap:10px
+}
+
+.icon-buton, .image-container-upload,.img-btn{
+  display: flex;
+  align-items:center;
+  
+}
+
+
+
+.img-btn{
+  border: #D4D7D9 dashed;
+  border-radius: 5px;
+  padding: 10px;
+  width: 400px;
+  gap: 10px;
+  margin-bottom: 1vh;
+  justify-content: center;
+}
+
+.icon-text{
+  font-size: 1.6em;
+  margin: 0;
+  font-weight: 200;
+}
+
+.btn-container-icon{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  
 }
