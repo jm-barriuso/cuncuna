@@ -67,11 +67,17 @@ const ImageUpload = () => {
                                                     <p className='icon-text'>Subir imagen</p>
                                                 </div>
                                                 <div className="icon-buton">
-                                                    <SwapOutlined style={{ fontSize: '2em', color: '#08c' }} className="me-2"onClick={() => onImageUpdate(index)}/>
+                                                    <SwapOutlined style={{ fontSize: '2em', color: '#08c' }} className="me-2"onClick={() => {
+                                                        onImageUpdate(index)
+                                                        setUrlImage('')
+                                                        }}/>
                                                     <p className='icon-text'>Cambiar imagen</p>
                                                 </div>
                                                 <div className="icon-buton">
-                                                    <DeleteTwoTone twoToneColor="#eb2f96"  style={{ fontSize: '2em'}}className="me-2"onClick={() => onImageRemove(index)}/>
+                                                    <DeleteTwoTone twoToneColor="#eb2f96"  style={{ fontSize: '2em'}}className="me-2"onClick={() => {
+                                                        onImageRemove(index)
+                                                        setUrlImage('')
+                                                        }}/>
                                                     <p className='icon-text'>Borrar imagen</p>
                                                 </div>
                                             </div>

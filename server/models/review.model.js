@@ -5,7 +5,7 @@ title: {
     type: String,
     required: [true, "El titulo es obligatorio"],
 },
-author: {
+authore: {
     type: String,
     required: [true, "El autor es obligatorio"],
 },

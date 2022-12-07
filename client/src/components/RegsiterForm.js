@@ -23,10 +23,10 @@ const RegsiterForm = () => {
             <Form.Group as={Col} className="mb-3" controlId="formBasicFirstName">
               <Form.Label>Nombre:</Form.Label>
               <Form.Control 
-                isInvalid={ !!errors.nombre}
+                isInvalid={ !!errors.firstName}
                 type="text" 
                 placeholder="Nombre" 
-                {...register("nombre", {
+                {...register("firstName", {
                   required: "Este campo es requerido",
                   minLength: {
                     value:3,
@@ -42,17 +42,17 @@ const RegsiterForm = () => {
                   }
                 )}
               />
-            {errors.nombre && <Form.Text className="text-danger">{errors.nombre?.message}</Form.Text>}
+            {errors.firstName && <Form.Text className="text-danger">{errors.firstName?.message}</Form.Text>}
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3" controlId="formBasicLastName">
               <Form.Label>Apellido:</Form.Label>
               <Form.Control
-                isInvalid={ !!errors.apellido}
+                isInvalid={ !!errors.lastName}
                 type="text"
                 placeholder="Apellido" 
-                {...register("apellido", {
+                {...register("lastName", {
                   required: "Este campo es requerido",
                   minLength: {
                     value:3,
@@ -68,23 +68,11 @@ const RegsiterForm = () => {
                   }
                 )}
               />
-              {errors.apellido && <Form.Text className="text-danger">{errors.apellido?.message}</Form.Text>}
+              {errors.lastName && <Form.Text className="text-danger">{errors.lastName?.message}</Form.Text>}
             </Form.Group>
           </Col>
         </Row>
         <Form.Group className="mb-3" controlId="formBasicRut">
-        <Form.Label>Rut:</Form.Label>
-        <Form.Control 
-          isInvalid={ !!errors.rut}
-          type="text" 
-          placeholder="11111111-1" 
-          {...register("rut", {
-            required: "Este campo es requerido", 
-            pattern: /^[0-9]+[-|‐]{1}[0-9kK]{1}$/i
-              }
-            )}
-        />
-        {errors.rut && <Form.Text className="text-danger">{errors.rut?.message}</Form.Text>}
         </Form.Group>
             <Form.Group className="mb-3 " controlId="formBasicEmail">
               <Form.Label>Email:</Form.Label>
