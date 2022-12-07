@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -6,13 +6,39 @@ import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 import ImageUpload from './ImageUpload';
 
-const BookForm = () => {
+const BookForm = (props) => {
 
-const { register, handleSubmit, formState: { errors }, watch } = useForm();
+const {title,author,ilustrator,number,description,image,onUpload,onSubmitProp,images,setImages,urlImage,setUrlImage,loading} = props
+
+const { register, handleSubmit, formState: { errors }, watch, reset } = useForm({
+    defaultValues: {
+        title: title,
+        author: author,
+        ilustrator: ilustrator,
+        number: number,
+        description:description
+    }
+});
+
+useEffect(() => {
+    reset({
+        title: title,
+        author: author,
+        ilustrator: ilustrator,
+        number: number,
+        description:description
+    });
+},[]);
+
+
 const password = useRef({});
 password.current = watch("password", "");
-const onSubmit = data => console.log(data);
-console.log(errors);
+
+const onSubmit = (data) => {
+    data.img = urlImage;
+    console.log(data)
+    onSubmitProp(data)
+};
 
 
 return (
@@ -25,11 +51,11 @@ return (
                     isInvalid={ !!errors.titulo}
                     type="text" 
                     placeholder="Titulo" 
-                    {...register("titulo",
+                    {...register("title",
                         {required: "Este campo es requerido",}
                     )}
                     />
-                    {errors.titulo && <Form.Text className="text-danger">{errors.titulo?.message}</Form.Text>}
+                    {errors.title && <Form.Text className="text-danger">{errors.title?.message}</Form.Text>}
                 </Form.Group>
             </Col>
             <Col>
@@ -88,10 +114,27 @@ return (
                 {errors.description && <Form.Text className="text-danger">{errors.description?.message}</Form.Text>}
             </Form.Group>
             <Form.Label>Portada:</Form.Label>
-            <ImageUpload/>
-        <Button variant="primary" size="lg" type="submit">
+            <ImageUpload 
+            image={image} 
+            onUpload={onUpload}
+            images={images}
+            setImages={setImages}
+            urlImage= {urlImage}
+            setUrlImage={setUrlImage}
+            loading={loading}
+            />
+        <Button variant="warning" size="lg" type="submit">
             Enviar Reseña
-        </Button>  
+        </Button> 
+        <Button variant="outline-danger" type="button" onClick={()=>{
+            reset({
+                title: title,
+                author: author,
+                ilustrator: ilustrator,
+                number: number,
+                description:description
+            });
+        }}>Shame</Button>
         </Form>
     </Container>
     );

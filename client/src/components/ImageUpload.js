@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React /* { useState } */ from 'react';
 import ImageUploading from "react-images-uploading";
-import { imgUpload } from '../services/imgUpload';
+//import { imgUpload } from '../services/imgUpload';
 import {UploadOutlined, SwapOutlined, DeleteTwoTone,LoadingOutlined, FileImageOutlined } from '@ant-design/icons'
 
 
 
-const ImageUpload = () => {
+const ImageUpload = (props) => {
     
-    const [images, setImages] = useState([]);
-    const [urlImage, setUrlImage] = useState('')
-    const [loading, setLoading] = useState(false);
+    const { image, images, setImages, urlImage,setUrlImage,loading, onUpload} = props
+
     const maxNumber = 1;
     const onChange = (imageList, addUpdateIndex) => {
     // data for submit
@@ -18,16 +17,7 @@ const ImageUpload = () => {
     setImages(imageList);
     };
 
-    const onUpload = async () => {
-        setLoading(true);
-        const url = await imgUpload(images[0].file);
-        setLoading(false);
-        console.log("URL",url)
-
-        if (url) setUrlImage(url);
-        else alert('Error, trate nuevamente más tarde. ❌')
-    }
-
+    console.log(images)
     return (
         <div>
             <ImageUploading
@@ -51,7 +41,7 @@ const ImageUpload = () => {
             <div className="upload__mage-wrapper">
                 {
                     images[0]?
-                    imageList.map((image, index) => (
+                    imageList?.map((image, index) => (
                         <div key={index} className="image-item">
                             <div className="image-container-upload">
     

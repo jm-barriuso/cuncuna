@@ -1,6 +1,6 @@
-const ReviewController = require("../controllers/review.controller");
-const UserController = require("../controllers/user.controller");
-const authenticate = require("../config/authenticate")
+const ReviewController = require("./controllers/review.controller");
+const UserController = require("./controllers/user.controller");
+const authenticate = require("./config/authenticate")
 
 
 module.exports = app => {

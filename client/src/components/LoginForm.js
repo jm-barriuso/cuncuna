@@ -1,38 +1,65 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Container from 'react-bootstrap/Container';
-import Col from 'react-bootstrap/Col';
-import { useNavigate } from 'react-router-dom';
+import { Formik, Field, Form } from "formik";
+import * as Yup from "yup";
+import Container from 'react-bootstrap/esm/Container';
+import Button from 'react-bootstrap/esm/Button';
 
-const LoginForm = () => {
+const LoginForm = (props) => {
 
-    const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors }} = useForm();
-    const onSubmit = () => navigate("/admin");
-    console.log(errors);
-
+    const {onSubmitProp}=props;
 
     return (
-        <Container className="my-4">
-            <Form onSubmit={handleSubmit(onSubmit)}>
-            <Form.Group as={Col} className="mb-3" controlId="formBasicFirstName"> 
-                <Form.Label>Email:</Form.Label>
-                <Form.Control type="text" placeholder="Email" {...register("email", {required: true, pattern: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i})} />
-            </Form.Group>
-            <Form.Group as={Col} className="mb-3" controlId="formBasicFirstName"> 
-                <Form.Label>Contraseña:</Form.Label>
-                <Form.Control type="password" placeholder="Password" {...register("password", {required: true, min: 8})} />
-            </Form.Group>
-            <Button className="me-2" variant="primary" type="submit">
-                Ingresar
-            </Button>
-            <Button className="me-2" variant="secondary" type="submit" onClick={()=>navigate("/register")}>
-                Registrarse
-            </Button>  
+        <Container>
 
-            </Form>
+            <div >
+            <Formik
+            initialValues={{
+            email:'',
+            password:'',
+            }}
+            validationSchema={Yup.object().shape({
+                email: Yup.string()
+                .email("Correo no valido")
+                .min(3, "Este correo electrónico es incorrecto")
+                .required("Por favor, ingresa un correo electrónico válido"),
+                
+                password: Yup.string()
+                .min(8, "La clave debe contener más de 8 caractes")
+                .required("Por favor ingrese una contraseña")
+            })}
+
+            onSubmit={(values, {setSubmitting}) =>{
+                onSubmitProp(values);
+            }}
+            >
+                {({
+                    values,
+                    errors,
+                    touched,
+                    handleSubmit,
+                    //isSubmitting,
+                    //validating,
+                    valid,
+                }) =>{
+            return (
+                <div>
+                    <h1>LOGIN</h1>
+                    <Form className= "contact" method= "post" onSubmit={handleSubmit}>
+                        <label htmlFor="email" className="col-form-label">Correo Electrónico</label>
+                        <Field id='email' type="text" placeholder="Email" className={`form-control`} name='email'/>
+                        {errors.email && touched.email && <p>{errors.email}</p>}
+
+                        <label htmlFor="password" className="col-sm-2 col-form-label">Contraseña</label>
+                        <Field  id='password' type="password" placeholder="Contraseña" className={`form-control`} name='password'/>
+                        {errors.password && touched.password && <p>{errors.password}</p>}
+                        <br></br>
+                        <Button type="submit" variant="warning"disabled={Object.values(errors).length > 0}>Login</Button>
+                    </Form>
+                    </div>
+            );
+            }}
+            </Formik>
+            </div>
         </Container>
     );
 }
