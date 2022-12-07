@@ -119,6 +119,7 @@ const RegsiterForm = () => {
                   type="password" 
                   placeholder="password" 
                   {...register("confirmPassword", {
+                    required: "Este campo es requerido",
                     validate: value =>
                     value === password.current || "Las contraseñas no coinciden"
                     }

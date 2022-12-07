@@ -19,11 +19,11 @@ const LoginForm = () => {
             <Form onSubmit={handleSubmit(onSubmit)}>
             <Form.Group as={Col} className="mb-3" controlId="formBasicFirstName"> 
                 <Form.Label>Email:</Form.Label>
-                <Form.Control type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i})} />
+                <Form.Control type="text" placeholder="Email" {...register("email", {required: true, pattern: /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i})} />
             </Form.Group>
             <Form.Group as={Col} className="mb-3" controlId="formBasicFirstName"> 
                 <Form.Label>Contraseña:</Form.Label>
-                <Form.Control type="password" placeholder="Password" {...register("Password", {required: true, min: 8})} />
+                <Form.Control type="password" placeholder="Password" {...register("password", {required: true, min: 8})} />
             </Form.Group>
             <Button className="me-2" variant="primary" type="submit">
                 Ingresar

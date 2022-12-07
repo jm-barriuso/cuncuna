@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const bcrypt = require("bcrypt");
 const uniqueValidator = require("mongoose-unique-validator")
 
 const UserSchema = new mongoose.Schema({
@@ -43,6 +43,18 @@ UserSchema.pre("validate",function(next){
         this.invalidate("confirmPassword","Las contraseñas deben ser iguales")
     }
     next()
+})
+
+UserSchema.pre("save",function(next){
+    if(this.isNew){
+        bcrypt.hash(this.password,10).then((hash)=>{
+            console.log("HASH",hash)
+            this.password=hash
+            next()
+        })
+    }else{
+        next();
+    }
 })
 
 const User = mongoose.model("User",UserSchema);

@@ -1,5 +1,6 @@
 const {User} = require("../models/user.model")
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 module.exports.Register = async(req,res) => {
     try{
@@ -23,7 +24,13 @@ module.exports.Login = async(req,res) => {
             res.json({errors:{error:{message:"El usuario no existe en la base de datos"}}})
         }
 
-        if(req.body.password!==user.password){
+       /*  if(req.body.password!==user.password){
+            res.json({errors:{error:{message:"La contraseña es incorrecta"}}})
+        } */
+
+        const correctPassword = await bcrypt.compare(req.body.password,user.password);
+
+        if(!correctPassword){
             res.json({errors:{error:{message:"La contraseña es incorrecta"}}})
         }
 
